@@ -1,0 +1,153 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Archivo Narrow";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("https://fonts.gstatic.com/s/archivonarrow/v31/AfaqDnUzJnK5VpbwrOk3OohR6Q-F7G6h.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("https://fonts.gstatic.com/s/inter/v18/UcCo3FwrK3iLTcviYwYZ90OmSqEpJpE.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-weight: 100 800;
+  font-display: swap;
+  src: url("https://fonts.gstatic.com/s/jetbrainsmono/v21/tDbY2o-flEEny0FPP0880g4.woff2") format("woff2");
+}
+
+@theme inline {
+  --color-background: #111415;
+  --color-surface: #111415;
+  --color-surface-dim: #111415;
+  --color-surface-container: #1d2021;
+  --color-surface-container-low: #191c1d;
+  --color-surface-container-high: #282a2b;
+  --color-surface-container-highest: #323536;
+  --color-surface-variant: #323536;
+  --color-surface-bright: #373a3b;
+
+  --color-primary: #bec2ff;
+  --color-primary-container: #0000ff;
+  --color-on-primary: #0001ac;
+  --color-on-primary-container: #b3b7ff;
+  --color-on-primary-fixed: #00006e;
+  --color-on-primary-fixed-variant: #0000ef;
+  --color-primary-fixed: #e0e0ff;
+  --color-primary-fixed-dim: #bec2ff;
+  --color-inverse-primary: #343dff;
+
+  --color-secondary: #8bd5ff;
+  --color-secondary-container: #00bdfd;
+  --color-on-secondary: #003549;
+  --color-on-secondary-container: #004964;
+  --color-on-secondary-fixed: #001e2c;
+  --color-on-secondary-fixed-variant: #004c69;
+  --color-secondary-fixed: #c3e8ff;
+  --color-secondary-fixed-dim: #7ad0ff;
+
+  --color-tertiary: #bfc2fb;
+  --color-tertiary-container: #454879;
+  --color-on-tertiary: #282c5b;
+  --color-on-tertiary-container: #b6b8f1;
+  --color-on-tertiary-fixed: #131645;
+  --color-on-tertiary-fixed-variant: #3f4273;
+  --color-tertiary-fixed: #e0e0ff;
+  --color-tertiary-fixed-dim: #bfc2fb;
+
+  --color-on-surface: #e1e3e4;
+  --color-on-surface-variant: #c5c4db;
+  --color-on-background: #e1e3e4;
+  --color-inverse-surface: #e1e3e4;
+  --color-inverse-on-surface: #2e3132;
+
+  --color-outline: #8f8fa4;
+  --color-outline-variant: #454558;
+
+  --color-error: #ffb4ab;
+  --color-error-container: #93000a;
+  --color-on-error: #690005;
+  --color-on-error-container: #ffdad6;
+
+  --font-display: "Archivo Narrow", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  --spacing-margin-mobile: 16px;
+  --spacing-margin-desktop: 48px;
+  --spacing-gutter-mobile: 12px;
+  --spacing-gutter-desktop: 24px;
+  --spacing-container-max: 1440px;
+
+  --radius-sm: 0.125rem;
+  --radius-md: 0.25rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    @apply antialiased;
+  }
+
+  body {
+    @apply bg-background text-on-surface font-body min-h-screen;
+  }
+
+  ::selection {
+    @apply bg-primary-container text-white;
+  }
+}
+
+@layer utilities {
+  .glow-hover:hover {
+    box-shadow: 0 0 15px rgba(0, 191, 255, 0.4);
+  }
+
+  .glow-text {
+    text-shadow: 0 0 10px rgba(0, 191, 255, 0.5);
+  }
+
+  .glass-panel {
+    background: rgba(29, 32, 33, 0.6);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .brutal-border {
+    border: 1px solid #000033;
+  }
+
+  .brutal-border-accent {
+    border: 1px solid #00bdfd;
+  }
+
+  .marquee {
+    animation: marquee 20s linear infinite;
+  }
+
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+}
