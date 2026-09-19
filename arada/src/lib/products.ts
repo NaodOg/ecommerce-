@@ -116,7 +116,7 @@ export const allProducts: Product[] = [
     name: "Canvas Tote",
     price: "800",
     image: "https://images.unsplash.com/photo-1594223274512-ad4803739b7c?w=600&q=80",
-    category: "accessories",
+    category: "totes",
     description: "Heavy 16oz canvas tote with bar-tacked handles and a reinforced gusset. Cut and sewn in-house in our garment shop.",
     badge: "NEW",
     plain: true,

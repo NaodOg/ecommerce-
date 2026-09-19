@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 
-const categories = ["all", "tees", "hoodies", "accessories"];
+const categories = ["all", "tees", "hoodies", "totes"];
 
 const steps = [
   { n: "01", title: "Pick your blanks", text: "Tees, hoodies, totes. Every piece cut and sewn in-house." },

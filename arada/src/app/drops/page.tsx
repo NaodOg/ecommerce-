@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 
-const categories = ["all", "plain", "tees", "hoodies", "outerwear", "pants", "accessories"];
+const categories = ["all", "plain", "tees", "hoodies", "sweaters", "mugs", "totes"];
 
 export default function DropsPage() {
   const [activeCategory, setActiveCategory] = useState("all");

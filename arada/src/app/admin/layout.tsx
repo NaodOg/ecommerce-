@@ -123,11 +123,6 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         </div>
       )}
 
-      {/* Top bar (desktop) */}
-      <header className="hidden md:flex items-center justify-between px-8 py-4 border-b border-outline-variant bg-surface-container">
-        <span className="font-mono text-sm text-outline uppercase tracking-widest">Admin Console</span>
-      </header>
-
       <div className="flex-1">{children}</div>
     </main>
   );

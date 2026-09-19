@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 
 type OptionalStorageId = Id<"_storage"> | null;
 
-const categories = ["tees", "hoodies", "outerwear", "pants", "accessories"];
+const categories = ["tees", "hoodies", "sweaters", "mugs", "totes"];
 
 function slugify(input: string) {
   return input
