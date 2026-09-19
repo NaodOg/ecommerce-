@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 
-const categories = ["all", "tees", "hoodies", "outerwear", "pants", "accessories"];
+const categories = ["all", "plain", "tees", "hoodies", "outerwear", "pants", "accessories"];
 
 export default function DropsPage() {
   const [activeCategory, setActiveCategory] = useState("all");
@@ -16,7 +16,9 @@ export default function DropsPage() {
   const filtered = products
     ? activeCategory === "all"
       ? products
-      : products.filter((p) => p.category === activeCategory)
+      : activeCategory === "plain"
+        ? products.filter((p) => p.plain)
+        : products.filter((p) => p.category === activeCategory)
     : [];
 
   return (
@@ -29,7 +31,7 @@ export default function DropsPage() {
               <h1 className="font-display text-3xl md:text-[80px] uppercase tracking-tighter text-white glow-text leading-none">
                 ALL PRODUCTS
               </h1>
-              <p className="font-mono text-xs text-on-surface-variant mt-2 tracking-widest uppercase">
+              <p className="font-mono text-sm text-on-surface-variant mt-2 tracking-widest uppercase">
                 {products === undefined ? "..." : `${filtered.length} ITEMS`}
               </p>
             </div>
@@ -39,7 +41,7 @@ export default function DropsPage() {
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
                   className={cn(
-                    "px-4 py-2 font-mono text-xs uppercase tracking-widest transition-all",
+                    "px-4 py-2 font-mono text-sm uppercase tracking-widest transition-all",
                     activeCategory === cat
                       ? "bg-primary-container text-white"
                       : "border border-outline-variant text-on-surface-variant hover:border-secondary hover:text-secondary"
@@ -59,6 +61,9 @@ export default function DropsPage() {
                 price={product.price}
                 image={product.image ?? ""}
                 badge={product.badge}
+                plain={product.plain}
+                bulkPrice={product.bulkPrice}
+                bulkMin={product.bulkMin}
                 href={`/product/${product.slug}`}
               />
             ))}
@@ -67,7 +72,7 @@ export default function DropsPage() {
           {products !== undefined && filtered.length === 0 && (
             <div className="py-16 text-center">
               <p className="font-display text-xl text-on-surface-variant uppercase tracking-tighter">No products</p>
-              <p className="font-mono text-xs text-outline uppercase tracking-widest mt-2">Nothing here yet</p>
+              <p className="font-mono text-sm text-outline uppercase tracking-widest mt-2">Nothing here yet</p>
             </div>
           )}
         </div>

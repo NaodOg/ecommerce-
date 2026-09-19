@@ -105,14 +105,14 @@ async function placeOrder(customer: {
             <h1 className="font-display text-2xl text-on-surface uppercase tracking-tighter">
               Make it glow.
             </h1>
-            <p className="font-mono text-xs text-outline uppercase tracking-widest">
+            <p className="font-mono text-sm text-outline uppercase tracking-widest">
               ARADA STUDIO &middot; DESIGN IT LIVE
             </p>
           </div>
 
           {/* Color */}
           <div className="flex flex-col gap-3">
-            <span className="font-mono text-xs text-on-surface-variant uppercase tracking-widest">COLOR</span>
+            <span className="font-mono text-sm text-on-surface-variant uppercase tracking-widest">COLOR</span>
             <div className="flex flex-wrap gap-3">
               {colors.map((c) => (
                 <button
@@ -133,7 +133,7 @@ async function placeOrder(customer: {
 
           {/* Art upload */}
           <div className="flex flex-col gap-3">
-            <span className="font-mono text-xs text-on-surface-variant uppercase tracking-widest">YOUR ART</span>
+            <span className="font-mono text-sm text-on-surface-variant uppercase tracking-widest">YOUR ART</span>
             <input
               ref={fileInputRef}
               type="file"
@@ -145,7 +145,7 @@ async function placeOrder(customer: {
               <div className="relative w-full border border-secondary/40 rounded-xl overflow-hidden bg-surface-dim/50">
                 <img src={designUrl} alt="Uploaded design" className="w-full h-28 object-contain p-2" />
                 <div className="flex items-center justify-between px-3 py-2 border-t border-outline-variant">
-                  <span className="font-mono text-[10px] text-on-surface-variant uppercase truncate">
+                  <span className="font-mono text-sm text-on-surface-variant uppercase truncate">
                     {designName}
                   </span>
                   <button onClick={removeDesign} className="text-error hover:text-error/80 transition-colors shrink-0">
@@ -160,16 +160,16 @@ async function placeOrder(customer: {
               >
                 <Upload className="text-secondary" size={22} />
                 <span className="font-display text-base text-on-surface">Drop your art</span>
-                <span className="font-mono text-[10px] text-outline uppercase tracking-widest">PNG / JPG</span>
+                <span className="font-mono text-sm text-outline uppercase tracking-widest">PNG / JPG</span>
               </button>
             )}
           </div>
 
           {/* Transform controls */}
           <div className="flex flex-col gap-4">
-            <span className="font-mono text-xs text-on-surface-variant uppercase tracking-widest">POSITION</span>
+            <span className="font-mono text-sm text-on-surface-variant uppercase tracking-widest">POSITION</span>
             <label className="flex flex-col gap-2">
-              <span className="font-mono text-[10px] text-outline uppercase tracking-widest">WIDTH {scale}%</span>
+              <span className="font-mono text-sm text-outline uppercase tracking-widest">WIDTH {scale}%</span>
               <input
                 type="range"
                 min={10}
@@ -180,7 +180,7 @@ async function placeOrder(customer: {
               />
             </label>
             <label className="flex flex-col gap-2">
-              <span className="font-mono text-[10px] text-outline uppercase tracking-widest">VERTICAL {dropY}px</span>
+              <span className="font-mono text-sm text-outline uppercase tracking-widest">VERTICAL {dropY}px</span>
               <input
                 type="range"
                 min={-120}
@@ -191,7 +191,7 @@ async function placeOrder(customer: {
               />
             </label>
             <label className="flex flex-col gap-2">
-              <span className="font-mono text-[10px] text-outline uppercase tracking-widest">ROTATION {rotation}°</span>
+              <span className="font-mono text-sm text-outline uppercase tracking-widest">ROTATION {rotation}°</span>
               <input
                 type="range"
                 min={-45}
@@ -205,14 +205,14 @@ async function placeOrder(customer: {
 
           {/* Sizes */}
           <div className="flex flex-col gap-3">
-            <span className="font-mono text-xs text-on-surface-variant uppercase tracking-widest">SIZES</span>
+            <span className="font-mono text-sm text-on-surface-variant uppercase tracking-widest">SIZES</span>
             <div className="flex flex-col gap-2">
               {sizeOptions.map((s) => (
                 <div
                   key={s.id}
                   className="flex items-center justify-between border border-outline-variant"
                 >
-                  <span className="px-4 py-2 font-mono text-xs uppercase tracking-widest text-on-surface-variant">
+                  <span className="px-4 py-2 font-mono text-sm uppercase tracking-widest text-on-surface-variant">
                     {s.label}
                   </span>
                   <div className="flex items-center gap-4">
@@ -246,7 +246,7 @@ async function placeOrder(customer: {
           <button
             onClick={() => setOrderOpen(true)}
             disabled={!designUrl || totalQuantity(quantities) === 0}
-            className="mt-auto flex items-center justify-center gap-2 bg-primary-container text-white font-display text-sm px-6 py-3 uppercase tracking-wider hover:shadow-[0_0_15px_rgba(0,0,255,0.5)] transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+            className="mt-auto flex items-center justify-center gap-2 bg-primary-container text-white font-display text-base px-6 py-3 uppercase tracking-wider hover:shadow-[0_0_15px_rgba(0,0,255,0.5)] transition-all disabled:opacity-40 disabled:cursor-not-allowed"
           >
             <ShoppingBag size={16} />
             Place Order &middot; {sizeBreakdown(quantities)}
@@ -312,7 +312,7 @@ function CheckoutModal({
           </button>
         </div>
 
-        <div className="flex items-center justify-between font-mono text-xs text-on-surface-variant uppercase tracking-widest border border-outline-variant px-3 py-2">
+        <div className="flex items-center justify-between font-mono text-sm text-on-surface-variant uppercase tracking-widest border border-outline-variant px-3 py-2">
           <span>{colorLabel} TEE &middot; {sizeBreakdown(quantities)}</span>
         </div>
 
@@ -337,7 +337,7 @@ function CheckoutModal({
           <button
             type="submit"
             disabled={submitting}
-            className="w-full bg-primary-container text-white font-display text-sm px-6 py-3 uppercase tracking-wider hover:shadow-[0_0_15px_rgba(0,0,255,0.5)] transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+            className="w-full bg-primary-container text-white font-display text-base px-6 py-3 uppercase tracking-wider hover:shadow-[0_0_15px_rgba(0,0,255,0.5)] transition-all disabled:opacity-40 disabled:cursor-not-allowed"
           >
             {submitting ? "Placing..." : "Confirm Order"}
           </button>

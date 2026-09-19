@@ -87,14 +87,14 @@ export default function MockupTestPage() {
             <h1 className="font-display text-2xl text-on-surface uppercase tracking-tighter">
               Mockup Preview
             </h1>
-            <p className="font-mono text-xs text-outline uppercase tracking-widest">
+            <p className="font-mono text-sm text-outline uppercase tracking-widest">
               2D layered render &middot; test
             </p>
           </div>
 
           {/* Color */}
           <div className="flex flex-col gap-3">
-            <span className="font-mono text-xs text-on-surface-variant uppercase tracking-widest">COLOR</span>
+            <span className="font-mono text-sm text-on-surface-variant uppercase tracking-widest">COLOR</span>
             <div className="flex flex-wrap gap-3">
               {colorPresets.map((c) => (
                 <button
@@ -115,7 +115,7 @@ export default function MockupTestPage() {
 
           {/* Art upload */}
           <div className="flex flex-col gap-3">
-            <span className="font-mono text-xs text-on-surface-variant uppercase tracking-widest">YOUR ART</span>
+            <span className="font-mono text-sm text-on-surface-variant uppercase tracking-widest">YOUR ART</span>
             <input
               ref={fileInputRef}
               type="file"
@@ -127,7 +127,7 @@ export default function MockupTestPage() {
               <div className="relative w-full border border-secondary/40 rounded-xl overflow-hidden bg-surface-dim/50">
                 <img src={designUrl} alt="Uploaded design" className="w-full h-28 object-contain p-2" />
                 <div className="flex items-center justify-between px-3 py-2 border-t border-outline-variant">
-                  <span className="font-mono text-[10px] text-on-surface-variant uppercase truncate">
+                  <span className="font-mono text-sm text-on-surface-variant uppercase truncate">
                     {designName}
                   </span>
                   <button onClick={removeDesign} className="text-error hover:text-error/80 transition-colors shrink-0">
@@ -142,16 +142,16 @@ export default function MockupTestPage() {
               >
                 <Upload className="text-secondary" size={22} />
                 <span className="font-display text-base text-on-surface">Drop your art</span>
-                <span className="font-mono text-[10px] text-outline uppercase tracking-widest">PNG / JPG</span>
+                <span className="font-mono text-sm text-outline uppercase tracking-widest">PNG / JPG</span>
               </button>
             )}
           </div>
 
           {/* Transform controls */}
           <div className="flex flex-col gap-4">
-            <span className="font-mono text-xs text-on-surface-variant uppercase tracking-widest">POSITION</span>
+            <span className="font-mono text-sm text-on-surface-variant uppercase tracking-widest">POSITION</span>
             <label className="flex flex-col gap-2">
-              <span className="font-mono text-[10px] text-outline uppercase tracking-widest">WIDTH {scale}%</span>
+              <span className="font-mono text-sm text-outline uppercase tracking-widest">WIDTH {scale}%</span>
               <input
                 type="range"
                 min={10}
@@ -162,7 +162,7 @@ export default function MockupTestPage() {
               />
             </label>
             <label className="flex flex-col gap-2">
-              <span className="font-mono text-[10px] text-outline uppercase tracking-widest">VERTICAL {dropY}px</span>
+              <span className="font-mono text-sm text-outline uppercase tracking-widest">VERTICAL {dropY}px</span>
               <input
                 type="range"
                 min={-120}
@@ -173,7 +173,7 @@ export default function MockupTestPage() {
               />
             </label>
             <label className="flex flex-col gap-2">
-              <span className="font-mono text-[10px] text-outline uppercase tracking-widest">ROTATION {rotation}°</span>
+              <span className="font-mono text-sm text-outline uppercase tracking-widest">ROTATION {rotation}°</span>
               <input
                 type="range"
                 min={-45}

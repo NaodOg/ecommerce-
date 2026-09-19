@@ -40,7 +40,7 @@ export default function AdminLoginPage() {
         <div className="flex flex-col items-center gap-4 mb-8">
           <div className="flex items-center gap-2 text-secondary">
             <Lock size={18} />
-            <span className="font-mono text-xs uppercase tracking-widest">Restricted</span>
+            <span className="font-mono text-sm uppercase tracking-widest">Restricted</span>
           </div>
           <h1 className="font-display text-3xl uppercase tracking-tighter text-on-surface text-center">
             Arada Admin
@@ -57,12 +57,12 @@ export default function AdminLoginPage() {
             className="w-full px-4 py-3 bg-surface-dim border border-outline-variant text-on-surface font-body focus:outline-none focus:border-secondary"
           />
           {error && (
-            <p className="font-mono text-xs text-error uppercase tracking-widest">{error}</p>
+            <p className="font-mono text-sm text-error uppercase tracking-widest">{error}</p>
           )}
           <button
             type="submit"
             disabled={loading || !password}
-            className="w-full bg-primary-container text-white font-display text-sm px-6 py-3 uppercase tracking-wider transition-all hover:shadow-[0_0_15px_rgba(0,0,255,0.5)] disabled:opacity-40 disabled:cursor-not-allowed"
+            className="w-full bg-primary-container text-white font-display text-base px-6 py-3 uppercase tracking-wider transition-all hover:shadow-[0_0_15px_rgba(0,0,255,0.5)] disabled:opacity-40 disabled:cursor-not-allowed"
           >
             {loading ? "Checking..." : "Enter"}
           </button>

@@ -86,7 +86,7 @@ export function GarmentViewer({
       {designTexture && (
         <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-5 px-5 py-3 glass-panel border border-outline-variant rounded-xl">
           <label className="flex items-center gap-2 text-on-surface-variant">
-            <span className="font-mono text-[10px] uppercase tracking-widest">Size</span>
+            <span className="font-mono text-sm uppercase tracking-widest">Size</span>
             <input
               type="range"
               min={10}
@@ -97,7 +97,7 @@ export function GarmentViewer({
             />
           </label>
           <label className="flex items-center gap-2 text-on-surface-variant">
-            <span className="font-mono text-[10px] uppercase tracking-widest">Rot</span>
+            <span className="font-mono text-sm uppercase tracking-widest">Rot</span>
             <input
               type="range"
               min={-45}

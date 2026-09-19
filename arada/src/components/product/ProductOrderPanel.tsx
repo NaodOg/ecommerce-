@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { ShoppingBag, X } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn, formatPrice } from "@/lib/utils";
 import {
   sizeOptions,
   defaultQuantities,
@@ -37,18 +37,27 @@ export function ProductOrderPanel({
       designScale: 35,
       designDropY: 0,
       designRotation: 0,
+      wholesale: product.plain ? true : undefined,
     });
   }
+
+  const sizeMax = product.plain ? 50 : 9;
 
   return (
     <>
       <div className="flex flex-col gap-4">
-        <div className="flex flex-col gap-3">
-          <span className="font-mono text-xs text-on-surface-variant uppercase tracking-widest">SIZES</span>
-          <div className="flex flex-col gap-2">
-            {sizeOptions.map((s) => (
+        <div className="flex flex-col gap-2">
+          <span className="font-mono text-sm text-on-surface-variant uppercase tracking-widest">
+            {product.plain ? "SIZES / WHOLESALE" : "SIZES"}
+          </span>
+          {product.plain && product.bulkPrice && product.bulkMin && (
+            <span className="font-mono text-sm text-secondary uppercase tracking-widest">
+              No minimums &middot; {formatPrice(product.bulkPrice)}/pc at {product.bulkMin}+
+            </span>
+          )}
+          {sizeOptions.map((s) => (
               <div key={s.id} className="flex items-center justify-between border border-outline-variant">
-                <span className="px-4 py-2 font-mono text-xs uppercase tracking-widest text-on-surface-variant">
+                <span className="px-4 py-2 font-mono text-sm uppercase tracking-widest text-on-surface-variant">
                   {s.label}
                 </span>
                 <div className="flex items-center gap-4">
@@ -63,7 +72,7 @@ export function ProductOrderPanel({
                     {quantities[s.id]}
                   </span>
                   <button
-                    onClick={() => setQuantities((q) => ({ ...q, [s.id]: Math.min(9, q[s.id] + 1) }))}
+                    onClick={() => setQuantities((q) => ({ ...q, [s.id]: Math.min(sizeMax, q[s.id] + 1) }))}
                     className="px-3 py-2 text-on-surface-variant hover:text-secondary transition-colors font-mono text-lg leading-none"
                     aria-label={`Increase size ${s.label}`}
                   >
@@ -72,16 +81,15 @@ export function ProductOrderPanel({
                 </div>
               </div>
             ))}
-          </div>
         </div>
 
         <button
           onClick={() => setOrderOpen(true)}
           disabled={soldOut || totalQuantity(quantities) === 0}
-          className="flex items-center justify-center gap-2 bg-primary-container text-white font-display text-sm px-6 py-3 uppercase tracking-wider hover:shadow-[0_0_15px_rgba(0,0,255,0.5)] transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+          className="flex items-center justify-center gap-2 bg-primary-container text-white font-display text-base px-6 py-3 uppercase tracking-wider hover:shadow-[0_0_15px_rgba(0,0,255,0.5)] transition-all disabled:opacity-40 disabled:cursor-not-allowed"
         >
           <ShoppingBag size={16} />
-          {soldOut ? "Sold Out" : `Order · ${sizeBreakdown(quantities)}`}
+          {soldOut ? "Sold Out" : product.plain ? `Order Wholesale · ${sizeBreakdown(quantities)}` : `Order · ${sizeBreakdown(quantities)}`}
         </button>
       </div>
 
@@ -144,9 +152,9 @@ function CheckoutModal({
           </button>
         </div>
 
-        <div className="flex items-center justify-between font-mono text-xs text-on-surface-variant uppercase tracking-widest border border-outline-variant px-3 py-2">
+        <div className="flex items-center justify-between font-mono text-sm text-on-surface-variant uppercase tracking-widest border border-outline-variant px-3 py-2">
           <span className="truncate">
-            {productName} &middot; {price} &middot; {sizeBreakdown(quantities)}
+            {productName} &middot; {formatPrice(price)} &middot; {sizeBreakdown(quantities)}
           </span>
         </div>
 
@@ -171,7 +179,7 @@ function CheckoutModal({
             type="submit"
             disabled={submitting}
             className={cn(
-              "w-full bg-primary-container text-white font-display text-sm px-6 py-3 uppercase tracking-wider transition-all disabled:opacity-40 disabled:cursor-not-allowed",
+              "w-full bg-primary-container text-white font-display text-base px-6 py-3 uppercase tracking-wider transition-all disabled:opacity-40 disabled:cursor-not-allowed",
               "hover:shadow-[0_0_15px_rgba(0,0,255,0.5)]",
             )}
           >

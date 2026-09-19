@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import { useQuery, useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Plus, Pencil, Trash2, X, Upload } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn, formatPrice } from "@/lib/utils";
 import type { ProductWithImage } from "@/convex/products";
 import type { Id } from "@/convex/_generated/dataModel";
 import { useRouter } from "next/navigation";
@@ -57,7 +57,7 @@ export default function AdminProductsPage() {
             setEditing(null);
             setShowForm(true);
           }}
-          className="flex items-center gap-2 bg-primary-container text-white font-display text-sm px-4 py-2.5 uppercase tracking-wider hover:shadow-[0_0_15px_rgba(0,0,255,0.5)] transition-all"
+          className="flex items-center gap-2 bg-primary-container text-white font-display text-base px-4 py-2.5 uppercase tracking-wider hover:shadow-[0_0_15px_rgba(0,0,255,0.5)] transition-all"
         >
           <Plus size={16} />
           Add Product
@@ -71,13 +71,13 @@ export default function AdminProductsPage() {
               {p.image ? (
                 <img src={p.image} alt={p.name} className="w-full h-full object-cover" />
               ) : (
-                <div className="w-full h-full flex items-center justify-center font-mono text-xs text-outline uppercase">
+                <div className="w-full h-full flex items-center justify-center font-mono text-sm text-outline uppercase">
                   No image
                 </div>
               )}
-              {p.badge && (
-                <span className="absolute top-2 right-2 bg-background border border-secondary text-secondary font-mono text-[10px] px-2 py-0.5 uppercase">
-                  {p.badge}
+              {(p.badge || p.plain) && (
+                <span className="absolute top-2 right-2 bg-background border border-secondary text-secondary font-mono text-sm px-2 py-0.5 uppercase">
+                  {p.badge ?? "PLAIN"}
                 </span>
               )}
             </div>
@@ -85,9 +85,9 @@ export default function AdminProductsPage() {
               <div className="flex justify-between items-start gap-2">
                 <div className="min-w-0">
                   <h3 className="font-display text-lg text-on-surface uppercase tracking-tighter truncate">{p.name}</h3>
-                  <span className="font-mono text-xs text-outline uppercase tracking-widest">{p.category}</span>
+                  <span className="font-mono text-sm text-outline uppercase tracking-widest">{p.category}</span>
                 </div>
-                <span className="font-mono text-sm text-secondary shrink-0">{p.price}</span>
+                <span className="font-display text-base text-secondary shrink-0">{formatPrice(p.price)}</span>
               </div>
               <p className="font-body text-xs text-on-surface-variant line-clamp-2">{p.description}</p>
               <div className="mt-auto flex gap-2 pt-2">
@@ -96,14 +96,14 @@ export default function AdminProductsPage() {
                     setEditing(p);
                     setShowForm(true);
                   }}
-                  className="flex items-center gap-1.5 px-3 py-1.5 border border-outline-variant text-on-surface-variant hover:text-secondary hover:border-secondary transition-colors font-mono text-xs uppercase tracking-widest"
+                  className="flex items-center gap-1.5 px-3 py-1.5 border border-outline-variant text-on-surface-variant hover:text-secondary hover:border-secondary transition-colors font-mono text-sm uppercase tracking-widest"
                 >
                   <Pencil size={12} />
                   Edit
                 </button>
                 <button
                   onClick={() => handleDelete(p)}
-                  className="flex items-center gap-1.5 px-3 py-1.5 border border-outline-variant text-error hover:border-error transition-colors font-mono text-xs uppercase tracking-widest"
+                  className="flex items-center gap-1.5 px-3 py-1.5 border border-outline-variant text-error hover:border-error transition-colors font-mono text-sm uppercase tracking-widest"
                 >
                   <Trash2 size={12} />
                   Delete
@@ -159,6 +159,9 @@ function ProductForm({
     badge?: string;
     imageStorageId: Id<"_storage"> | null;
     imageUrl?: string;
+    plain?: boolean;
+    bulkPrice?: string;
+    bulkMin?: number;
   }) => Promise<void>;
   onClose: () => void;
 }) {
@@ -171,6 +174,9 @@ function ProductForm({
   const [imageStorageId, setImageStorageId] = useState<OptionalStorageId>(product?.imageStorageId ?? null);
   const [imageUrl, setImageUrl] = useState<string | undefined>(product?.imageUrl);
   const [preview, setPreview] = useState<string | null>(product?.image ?? null);
+  const [plain, setPlain] = useState(product?.plain ?? false);
+  const [bulkPrice, setBulkPrice] = useState(product?.bulkPrice ?? "");
+  const [bulkMin, setBulkMin] = useState(product?.bulkMin?.toString() ?? "");
   const fileRef = useRef<HTMLInputElement>(null);
   const [submitting, setSubmitting] = useState(false);
 
@@ -207,6 +213,9 @@ function ProductForm({
         badge: badge || undefined,
         imageStorageId,
         imageUrl,
+        plain: plain || undefined,
+        bulkPrice: plain && bulkPrice ? bulkPrice : undefined,
+        bulkMin: plain && bulkMin ? Number(bulkMin) : undefined,
       });
     } catch (err) {
       alert(err instanceof Error ? err.message : "Failed to save product.");
@@ -236,7 +245,7 @@ function ProductForm({
 
         <form onSubmit={handleSubmit} className="p-5 flex flex-col gap-4">
           <div className="flex flex-col gap-1">
-            <span className="font-mono text-xs text-on-surface-variant uppercase tracking-widest">Image</span>
+            <span className="font-mono text-sm text-on-surface-variant uppercase tracking-widest">Image</span>
             <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={handleFile} />
             {preview ? (
               <div className="relative aspect-video bg-surface-dim overflow-hidden">
@@ -261,7 +270,7 @@ function ProductForm({
                 className="aspect-video border-2 border-dashed border-outline-variant flex flex-col items-center justify-center gap-2 hover:border-secondary transition-colors cursor-pointer"
               >
                 <Upload className="text-secondary" size={20} />
-                <span className="font-mono text-xs text-on-surface-variant uppercase tracking-widest">
+                <span className="font-mono text-sm text-on-surface-variant uppercase tracking-widest">
                   Upload image
                 </span>
               </button>
@@ -270,7 +279,7 @@ function ProductForm({
 
           <input type="text" required placeholder="Product name" value={name} onChange={(e) => { setName(e.target.value); autoSlug(); }} className={inputClass} />
           <input type="text" required placeholder="Slug (auto)" value={slug} onChange={(e) => setSlug(e.target.value)} className={inputClass} />
-          <input type="text" required placeholder="Price (e.g. $38)" value={price} onChange={(e) => setPrice(e.target.value)} className={inputClass} />
+          <input type="text" required placeholder="Price in ETB (e.g. 800)" value={price} onChange={(e) => setPrice(e.target.value)} className={inputClass} />
           <select value={category} onChange={(e) => setCategory(e.target.value)} className={inputClass}>
             {categories.map((c) => (
               <option key={c} value={c}>{c}</option>
@@ -278,6 +287,38 @@ function ProductForm({
           </select>
           <input type="text" placeholder="Badge (e.g. NEW, SOLD OUT)" value={badge} onChange={(e) => setBadge(e.target.value)} className={inputClass} />
           <textarea required placeholder="Description" value={description} onChange={(e) => setDescription(e.target.value)} rows={3} className={cn(inputClass, "resize-none")} />
+
+          <label className="flex items-center gap-3 border border-outline-variant px-4 py-3 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={plain}
+              onChange={(e) => setPlain(e.target.checked)}
+              className="w-4 h-4 accent-primary-container"
+            />
+            <span className="font-mono text-sm text-on-surface uppercase tracking-widest">
+              Plain garment (sewn, no print)
+            </span>
+          </label>
+
+          {plain && (
+            <div className="flex gap-3">
+              <input
+                type="text"
+                placeholder="Bulk price per piece in ETB (e.g. 640)"
+                value={bulkPrice}
+                onChange={(e) => setBulkPrice(e.target.value)}
+                className={inputClass}
+              />
+              <input
+                type="number"
+                min={1}
+                placeholder="Min qty (e.g. 10)"
+                value={bulkMin}
+                onChange={(e) => setBulkMin(e.target.value)}
+                className={cn(inputClass, "max-w-[140px]")}
+              />
+            </div>
+          )}
 
           <div className="flex gap-3 pt-1">
             <button
@@ -290,7 +331,7 @@ function ProductForm({
             <button
               type="submit"
               disabled={submitting}
-              className="flex-1 bg-primary-container text-white font-display text-sm px-4 py-3 uppercase tracking-wider hover:shadow-[0_0_15px_rgba(0,0,255,0.5)] transition-all disabled:opacity-40"
+              className="flex-1 bg-primary-container text-white font-display text-base px-4 py-3 uppercase tracking-wider hover:shadow-[0_0_15px_rgba(0,0,255,0.5)] transition-all disabled:opacity-40"
             >
               {submitting ? "Saving..." : product ? "Save Changes" : "Create Product"}
             </button>

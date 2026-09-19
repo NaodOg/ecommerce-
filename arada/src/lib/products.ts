@@ -6,6 +6,9 @@ export type Product = {
   badge?: string;
   category: string;
   description: string;
+  plain?: boolean;
+  bulkPrice?: string;
+  bulkMin?: number;
 };
 
 export const allProducts: Product[] = [
@@ -107,6 +110,40 @@ export const allProducts: Product[] = [
     image: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600&q=80",
     category: "tees",
     description: "The everyday staple. 200gsm compact cotton, tonal chest embroidery, no frills.",
+  },
+  {
+    slug: "canvas-tote",
+    name: "Canvas Tote",
+    price: "800",
+    image: "https://images.unsplash.com/photo-1594223274512-ad4803739b7c?w=600&q=80",
+    category: "accessories",
+    description: "Heavy 16oz canvas tote with bar-tacked handles and a reinforced gusset. Cut and sewn in-house in our garment shop.",
+    badge: "NEW",
+    plain: true,
+    bulkPrice: "380",
+    bulkMin: 10,
+  },
+  {
+    slug: "plain-tee",
+    name: "Plain Heavyweight Tee",
+    price: "800",
+    image: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&q=80",
+    category: "tees",
+    description: "Clean 240gsm heavyweight tee, sewn and finished in-house. No print, no graphics — ready for your label.",
+    plain: true,
+    bulkPrice: "640",
+    bulkMin: 10,
+  },
+  {
+    slug: "plain-hoodie",
+    name: "Plain Hoodie",
+    price: "1600",
+    image: "https://images.unsplash.com/photo-1556821840-3a63f7560068?w=600&q=80",
+    category: "hoodies",
+    description: "Blank brushed-fleece hoodie with a double-layered hood and steel-tipped drawcords. Bulk blank stock for brands and stockists.",
+    plain: true,
+    bulkPrice: "1280",
+    bulkMin: 10,
   },
 ];
 

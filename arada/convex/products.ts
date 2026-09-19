@@ -5,7 +5,28 @@ import { Id } from "./_generated/dataModel";
 export const listProducts = query({
   args: {},
   handler: async (ctx) => {
-    const products = await ctx.db.query("products").order("asc").collect();
+    const products = await ctx.db.query("products").order("desc").collect();
+    return Promise.all(
+      products.map(async (p) => ({
+        ...p,
+        image: p.imageStorageId && p.imageUrl
+          ? p.imageUrl
+          : p.imageStorageId
+            ? (await ctx.storage.getUrl(p.imageStorageId)) ?? p.imageUrl ?? null
+            : p.imageUrl ?? null,
+      })),
+    );
+  },
+});
+
+export const listPlainProducts = query({
+  args: {},
+  handler: async (ctx) => {
+    const products = await ctx.db
+      .query("products")
+      .filter((q) => q.eq(q.field("plain"), true))
+      .order("desc")
+      .collect();
     return Promise.all(
       products.map(async (p) => ({
         ...p,
@@ -49,6 +70,9 @@ export const createProduct = mutation({
     badge: v.optional(v.string()),
     imageStorageId: v.union(v.id("_storage"), v.null()),
     imageUrl: v.optional(v.string()),
+    plain: v.optional(v.boolean()),
+    bulkPrice: v.optional(v.string()),
+    bulkMin: v.optional(v.number()),
   },
   handler: async (ctx, args) => {
     const existing = await ctx.db
@@ -75,6 +99,9 @@ export const updateProduct = mutation({
     badge: v.optional(v.string()),
     imageStorageId: v.union(v.id("_storage"), v.null()),
     imageUrl: v.optional(v.string()),
+    plain: v.optional(v.boolean()),
+    bulkPrice: v.optional(v.string()),
+    bulkMin: v.optional(v.number()),
   },
   handler: async (ctx, args) => {
     const { productId, ...fields } = args;
@@ -119,6 +146,10 @@ const seedProducts = [
   { name: "Wide Leg Pants", slug: "wide-leg-pants", price: "$70", category: "pants", description: "High-rise wide leg pant in twill. Deep pockets and an extended back waist tab." },
   { name: "Zip Hoodie", slug: "zip-hoodie", price: "$78", category: "hoodies", description: "Full-zip hoodie in heavyweight fleece with a metal zip and side-seam gussets." },
   { name: "Essential Tee", slug: "essential-tee", price: "$32", category: "tees", description: "The everyday staple. 200gsm compact cotton, tonal chest embroidery, no frills." },
+  { name: "Canvas Tote", slug: "canvas-tote", price: "450", category: "accessories", description: "Heavy 16oz canvas tote with bar-tacked handles and a reinforced gusset. Cut and sewn in-house in our garment shop.", badge: "NEW", plain: true, bulkPrice: "380", bulkMin: 10 },
+  { name: "Plain Heavyweight Tee", slug: "plain-tee", price: "800", category: "tees", description: "Clean 240gsm heavyweight tee, sewn and finished in-house. No print, no graphics — ready for your label.", plain: true, bulkPrice: "640", bulkMin: 10 },
+  { name: "Plain Hoodie", slug: "plain-hoodie", price: "1600", category: "hoodies", description: "Blank brushed-fleece hoodie with a double-layered hood and steel-tipped drawcords. Bulk blank stock for brands and stockists.", plain: true, bulkPrice: "1280", bulkMin: 10 },
+  { name: "Ceramic Mug", slug: "mug", price: "550", category: "accessories", description: "Glossy 11oz ceramic mug, screen-printed with your design on both faces. Dishwasher-safe, built to last.", badge: "NEW" },
 ];
 
 const seedImages: Record<string, string> = {
@@ -134,6 +165,10 @@ const seedImages: Record<string, string> = {
   "wide-leg-pants": "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=600&q=80",
   "zip-hoodie": "https://images.unsplash.com/photo-1556821840-3a63f7560068?w=600&q=80",
   "essential-tee": "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600&q=80",
+  "canvas-tote": "https://images.unsplash.com/photo-1594223274512-ad4803739b7c?w=600&q=80",
+  "plain-tee": "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&q=80",
+  "plain-hoodie": "https://images.unsplash.com/photo-1556821840-3a63f7560068?w=600&q=80",
+  "mug": "https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=600&q=80",
 };
 
 export const seed = mutation({
@@ -166,6 +201,9 @@ export type ProductWithImage = {
   badge?: string;
   imageStorageId: Id<"_storage"> | null;
   imageUrl?: string;
+  plain?: boolean;
+  bulkPrice?: string;
+  bulkMin?: number;
   sortOrder: number;
   createdAt: number;
   image: string | null;

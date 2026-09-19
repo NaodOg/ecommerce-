@@ -8,6 +8,7 @@ import Link from "next/link";
 import { use } from "react";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { formatPrice } from "@/lib/utils";
 
 export default function ProductPage({
   params,
@@ -52,13 +53,13 @@ export default function ProductPage({
                 className="absolute inset-0 w-full h-full object-cover"
               />
             ) : (
-              <div className="absolute inset-0 flex items-center justify-center font-mono text-xs text-outline uppercase">
+              <div className="absolute inset-0 flex items-center justify-center font-mono text-sm text-outline uppercase">
                 No image
               </div>
             )}
             {product.badge && (
               <div className="absolute top-3 right-3">
-                <span className="bg-background border border-secondary text-secondary font-mono text-[10px] px-2 py-1 uppercase">
+                <span className="bg-background border border-secondary text-secondary font-mono text-sm px-2 py-1 uppercase">
                   {product.badge}
                 </span>
               </div>
@@ -68,20 +69,38 @@ export default function ProductPage({
 
         <div className="lg:w-[400px] border-t lg:border-t-0 lg:border-l border-outline-variant p-6 flex flex-col gap-6">
           <div>
-            <span className="font-mono text-xs text-secondary uppercase tracking-widest">
+            <span className="font-mono text-sm text-secondary uppercase tracking-widest">
               {product.category}
             </span>
             <h1 className="font-display text-3xl text-on-surface uppercase tracking-tighter mt-1">
               {product.name}
             </h1>
-            <p className="font-mono text-sm text-on-surface-variant mt-1 uppercase tracking-widest">
-              {product.price}
+            <p className="font-display text-2xl text-secondary mt-1">
+              {formatPrice(product.price)}
             </p>
           </div>
 
-          <p className="font-body text-sm text-on-surface-variant leading-relaxed">
+          <p className="font-body text-base text-on-surface-variant leading-relaxed">
             {product.description}
           </p>
+
+          {product.plain && (
+            <div className="border border-secondary/40 bg-surface-dim p-4 flex flex-col gap-1">
+              <span className="font-mono text-sm text-secondary uppercase tracking-widest">
+                PLAIN &middot; SEWN IN-HOUSE &middot; NO PRINT
+              </span>
+              {product.bulkPrice && product.bulkMin && (
+                <span className="font-body text-base text-on-surface">
+                  Wholesale from{" "}
+                  <span className="text-secondary font-display">
+                    {formatPrice(product.bulkPrice)}
+                  </span>{" "}
+                  per piece at{" "}
+                  <span className="font-mono">{product.bulkMin}+</span> pieces.
+                </span>
+              )}
+            </div>
+          )}
 
           <div className="h-px bg-outline-variant" />
 
@@ -93,13 +112,16 @@ export default function ProductPage({
               image: product.image ?? "",
               category: product.category,
               description: product.description,
+              plain: product.plain,
+              bulkPrice: product.bulkPrice,
+              bulkMin: product.bulkMin,
             }}
             soldOut={soldOut}
           />
 
           <Link
             href="/drops"
-            className="font-mono text-xs text-outline uppercase tracking-widest hover:text-secondary transition-colors"
+            className="font-mono text-sm text-outline uppercase tracking-widest hover:text-secondary transition-colors"
           >
             &larr; Back to shop
           </Link>

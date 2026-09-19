@@ -113,7 +113,7 @@ export default function AdminOrdersPage() {
                 </div>
                 <span
                   className={cn(
-                    "font-mono text-xs uppercase tracking-widest border px-2 py-0.5 shrink-0",
+                    "font-mono text-sm uppercase tracking-widest border px-2 py-0.5 shrink-0",
                     statusStyle[order.status],
                   )}
                 >
@@ -123,13 +123,18 @@ export default function AdminOrdersPage() {
 
               <div className="flex flex-col gap-0.5 font-mono text-sm text-on-surface-variant min-w-0">
                 <span className="truncate">{order.customerPhone}</span>
+                {order.wholesale && (
+                  <span className="font-mono text-sm uppercase tracking-widest border border-secondary text-secondary px-1.5 py-0.5 w-fit">
+                    Wholesale
+                  </span>
+                )}
               </div>
 
-              <span className="font-mono text-xs uppercase tracking-widest px-2 py-0.5 bg-surface-variant text-on-surface-variant shrink-0">
+              <span className="font-mono text-sm uppercase tracking-widest px-2 py-0.5 bg-surface-variant text-on-surface-variant shrink-0">
                 {sizeBreakdown(order.quantities)}
               </span>
               {order.designName && (
-                <span className="font-mono text-xs uppercase tracking-widest px-2 py-0.5 bg-surface-variant text-on-surface-variant truncate max-w-[200px] self-start">
+                <span className="font-mono text-sm uppercase tracking-widest px-2 py-0.5 bg-surface-variant text-on-surface-variant truncate max-w-[200px] self-start">
                   {order.designName}
                 </span>
               )}
@@ -217,7 +222,7 @@ export default function AdminOrdersPage() {
                     href={preview.designUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="flex items-center justify-center gap-2 bg-surface-variant text-on-surface font-display text-sm px-4 py-3 uppercase tracking-wider hover:bg-surface-variant/70 transition-colors"
+                    className="flex items-center justify-center gap-2 bg-surface-variant text-on-surface font-display text-base px-4 py-3 uppercase tracking-wider hover:bg-surface-variant/70 transition-colors"
                   >
                     <ExternalLink size={14} />
                     Open design file
@@ -226,7 +231,7 @@ export default function AdminOrdersPage() {
                     onClick={() =>
                       downloadDesign(preview.designUrl!, preview.designName ?? "arada-design")
                     }
-                    className="flex items-center justify-center gap-2 bg-primary-container text-white font-display text-sm px-4 py-3 uppercase tracking-wider hover:shadow-[0_0_15px_rgba(0,0,255,0.5)] transition-all"
+                    className="flex items-center justify-center gap-2 bg-primary-container text-white font-display text-base px-4 py-3 uppercase tracking-wider hover:shadow-[0_0_15px_rgba(0,0,255,0.5)] transition-all"
                   >
                     <Download size={14} />
                     Download for print

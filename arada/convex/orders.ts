@@ -53,6 +53,7 @@ export const createOrder = mutation({
     designScale: v.number(),
     designDropY: v.number(),
     designRotation: v.number(),
+    wholesale: v.optional(v.boolean()),
   },
   handler: async (ctx, args) => {
     const orderId = await ctx.db.insert("orders", {
@@ -104,6 +105,7 @@ export type OrderWithUrl = {
   designScale: number;
   designDropY: number;
   designRotation: number;
+  wholesale?: boolean;
   status: Doc<"orders">["status"];
   createdAt: number;
   designUrl: string | null;

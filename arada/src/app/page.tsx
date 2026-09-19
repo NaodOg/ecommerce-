@@ -18,14 +18,14 @@ export default function Home() {
             />
             <div className="absolute top-4 right-4 flex items-center gap-2 bg-background/50 backdrop-blur-sm border border-secondary px-3 py-1">
               <div className="w-2 h-2 rounded-full bg-secondary animate-pulse"></div>
-              <span className="font-mono text-[10px] text-secondary tracking-widest">LIVE</span>
+              <span className="font-mono text-sm text-secondary tracking-widest">LIVE</span>
             </div>
           </div>
 
           <div className="flex flex-col gap-6 md:w-2/3">
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-secondary rounded-full"></div>
-              <span className="font-mono text-xs text-on-surface-variant tracking-[0.2em] uppercase">
+              <span className="font-mono text-sm text-on-surface-variant tracking-[0.2em] uppercase">
                 ARADA &middot; AFTER DARK
               </span>
             </div>
@@ -35,8 +35,8 @@ export default function Home() {
               LAST.
             </h1>
             <p className="font-body text-lg text-on-surface-variant max-w-xl">
-              Custom heavyweight apparel, designed by you in 3D and printed in
-              our shop. No minimums. Numbered runs only.
+              Custom heavyweight apparel, made to order and printed in-house.
+              No minimums. Numbered runs only.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 mt-4">
               <Link
@@ -64,19 +64,19 @@ export default function Home() {
             <span className="font-display text-3xl md:text-[48px] text-white mb-2">
               240<span className="text-secondary">+</span>
             </span>
-            <span className="font-mono text-[10px] md:text-xs text-on-surface-variant uppercase max-w-[120px]">
+            <span className="font-mono text-sm md:text-xs text-on-surface-variant uppercase max-w-[120px]">
               PIECES THIS DROP
             </span>
           </div>
           <div className="flex flex-col border-r border-outline-variant px-4">
             <span className="font-display text-3xl md:text-[48px] text-white mb-2">48h</span>
-            <span className="font-mono text-[10px] md:text-xs text-on-surface-variant uppercase max-w-[120px]">
+            <span className="font-mono text-sm md:text-xs text-on-surface-variant uppercase max-w-[120px]">
               TURNAROUND
             </span>
           </div>
           <div className="flex flex-col pl-4">
             <span className="font-display text-3xl md:text-[48px] text-white mb-2">1/1</span>
-            <span className="font-mono text-[10px] md:text-xs text-on-surface-variant uppercase max-w-[120px]">
+            <span className="font-mono text-sm md:text-xs text-on-surface-variant uppercase max-w-[120px]">
               MADE TO ORDER
             </span>
           </div>
@@ -87,13 +87,13 @@ export default function Home() {
           <div className="flex justify-between items-end">
             <div className="flex items-center gap-4">
               <div className="h-1 w-6 bg-secondary-container"></div>
-              <span className="font-mono text-xs text-secondary-container tracking-widest uppercase">
+              <span className="font-mono text-sm text-secondary-container tracking-widest uppercase">
                 FEATURED
               </span>
             </div>
             <Link
               href="/drops"
-              className="font-mono text-xs text-on-surface-variant hover:text-secondary uppercase flex items-center gap-1 transition-colors"
+              className="font-mono text-sm text-on-surface-variant hover:text-secondary uppercase flex items-center gap-1 transition-colors"
             >
               VIEW ALL &rarr;
             </Link>

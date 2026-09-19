@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 const navLinks = [
   { href: "/", label: "HOME" },
   { href: "/drops", label: "SHOP" },
+  { href: "/plain", label: "PLAIN" },
   { href: "/studio", label: "STUDIO" },
   { href: "/about", label: "ABOUT" },
 ];
@@ -21,8 +22,12 @@ export function TopAppBar() {
     <>
       <header className="sticky top-0 z-50 flex items-center justify-between w-full px-4 md:px-12 py-4 bg-background/80 backdrop-blur-md border-b border-outline-variant">
         <div className="flex items-center gap-8">
-          <Link href="/" className="font-display text-headline-lg-mobile tracking-tighter text-on-surface uppercase">
-            ARADA
+          <Link href="/" className="flex items-center" aria-label="ARADA home">
+            <img
+              src="/aradalogo.png"
+              alt="ARADA"
+              className="h-8 md:h-10 w-auto object-contain"
+            />
           </Link>
           <nav className="hidden md:flex gap-8 items-center">
             {navLinks.map((link) => (
@@ -30,7 +35,7 @@ export function TopAppBar() {
                 key={link.label}
                 href={link.href}
                 className={cn(
-                  "font-mono text-xs font-medium tracking-widest transition-colors duration-200",
+                  "font-mono text-sm font-medium tracking-widest transition-colors duration-200",
                   pathname === link.href
                     ? "text-secondary-container border-b-2 border-secondary-container pb-1"
                     : "text-on-surface-variant hover:text-secondary"
@@ -45,7 +50,7 @@ export function TopAppBar() {
         <div className="flex items-center gap-4">
           <Link
             href="/studio"
-            className="hidden md:block bg-primary-container text-white font-display text-sm px-6 py-2 uppercase tracking-wider hover:shadow-[0_0_15px_rgba(0,0,255,0.5)] transition-all"
+            className="hidden md:block bg-primary-container text-white font-display text-base px-6 py-2 uppercase tracking-wider hover:shadow-[0_0_15px_rgba(0,0,255,0.5)] transition-all"
           >
             DESIGN YOURS
           </Link>
@@ -82,7 +87,7 @@ export function TopAppBar() {
           )}
         >
           <div className="flex items-center justify-between">
-            <span className="font-display text-sm uppercase tracking-tighter text-outline">
+            <span className="font-display text-base uppercase tracking-tighter text-outline">
               ARADA
             </span>
             <button
@@ -113,7 +118,7 @@ export function TopAppBar() {
               <Link
                 href="/studio"
                 onClick={() => setMobileOpen(false)}
-                className="block bg-primary-container text-white font-display text-sm px-6 py-3 uppercase tracking-wider text-center"
+                className="block bg-primary-container text-white font-display text-base px-6 py-3 uppercase tracking-wider text-center"
               >
                 DESIGN YOURS
               </Link>

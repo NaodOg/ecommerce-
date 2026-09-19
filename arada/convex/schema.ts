@@ -25,6 +25,9 @@ export default defineSchema({
     badge: v.optional(v.string()),
     imageStorageId: v.union(v.id("_storage"), v.null()),
     imageUrl: v.optional(v.string()),
+    plain: v.optional(v.boolean()),
+    bulkPrice: v.optional(v.string()),
+    bulkMin: v.optional(v.number()),
     sortOrder: v.number(),
     createdAt: v.number(),
   }).index("by_slug", ["slug"]),
@@ -50,6 +53,7 @@ export default defineSchema({
     designScale: v.number(),
     designDropY: v.number(),
     designRotation: v.number(),
+    wholesale: v.optional(v.boolean()),
     status: v.union(
       v.literal(orderStatus.pending),
       v.literal(orderStatus.inProgress),

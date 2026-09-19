@@ -65,7 +65,7 @@ export default function AdminSettingsPage() {
         <h2 className="font-display text-lg uppercase tracking-tighter text-on-surface">Store Settings</h2>
 
         <label className="flex flex-col gap-2">
-          <span className="font-mono text-xs text-on-surface-variant uppercase tracking-widest">Store Name</span>
+          <span className="font-mono text-sm text-on-surface-variant uppercase tracking-widest">Store Name</span>
           <input
             value={storeNameValue}
             onChange={(e) => setStoreNameEdit(e.target.value)}
@@ -75,7 +75,7 @@ export default function AdminSettingsPage() {
         </label>
 
         <label className="flex flex-col gap-2">
-          <span className="font-mono text-xs text-on-surface-variant uppercase tracking-widest">Marquee Text</span>
+          <span className="font-mono text-sm text-on-surface-variant uppercase tracking-widest">Marquee Text</span>
           <input
             value={marqueeValue}
             onChange={(e) => setMarqueeEdit(e.target.value)}
@@ -88,11 +88,11 @@ export default function AdminSettingsPage() {
           <button
             onClick={saveStoreSettings}
             disabled={saving || !loaded}
-            className="bg-primary-container text-white font-display text-sm px-6 py-3 uppercase tracking-wider hover:shadow-[0_0_15px_rgba(0,0,255,0.5)] transition-all disabled:opacity-40"
+            className="bg-primary-container text-white font-display text-base px-6 py-3 uppercase tracking-wider hover:shadow-[0_0_15px_rgba(0,0,255,0.5)] transition-all disabled:opacity-40"
           >
             {saving ? "Saving..." : "Save Settings"}
           </button>
-          {status && <span className="font-mono text-xs text-secondary uppercase tracking-widest">{status}</span>}
+          {status && <span className="font-mono text-sm text-secondary uppercase tracking-widest">{status}</span>}
         </div>
       </section>
 
@@ -100,7 +100,7 @@ export default function AdminSettingsPage() {
 
       <section className="flex flex-col gap-4 max-w-xl">
         <h2 className="font-display text-lg uppercase tracking-tighter text-on-surface">Admin Password</h2>
-        <p className="font-mono text-xs text-outline uppercase tracking-widest">
+        <p className="font-mono text-sm text-outline uppercase tracking-widest">
           Change the password used to access this panel
         </p>
 
@@ -129,10 +129,10 @@ export default function AdminSettingsPage() {
             onChange={(e) => setConfirmPassword(e.target.value)}
             className={inputClass}
           />
-          {pwdStatus && <span className="font-mono text-xs text-secondary uppercase tracking-widest">{pwdStatus}</span>}
+          {pwdStatus && <span className="font-mono text-sm text-secondary uppercase tracking-widest">{pwdStatus}</span>}
           <button
             type="submit"
-            className="self-start bg-primary-container text-white font-display text-sm px-6 py-3 uppercase tracking-wider hover:shadow-[0_0_15px_rgba(0,0,255,0.5)] transition-all"
+            className="self-start bg-primary-container text-white font-display text-base px-6 py-3 uppercase tracking-wider hover:shadow-[0_0_15px_rgba(0,0,255,0.5)] transition-all"
           >
             Change Password
           </button>

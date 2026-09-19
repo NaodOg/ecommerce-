@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ConvexClientProvider } from "@/components/ConvexClientProvider";
+import { Footer } from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
   title: "ARADA — Built to Last",
@@ -16,6 +17,7 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <body className="min-h-screen flex flex-col bg-background text-on-surface font-body overflow-x-hidden">
         <ConvexClientProvider>{children}</ConvexClientProvider>
+        <Footer />
       </body>
     </html>
   );

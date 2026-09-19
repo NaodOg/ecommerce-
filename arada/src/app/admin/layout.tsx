@@ -79,7 +79,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <div className="mt-auto p-3 border-t border-outline-variant flex flex-col gap-2">
           <Link
             href="/"
-            className="px-4 py-2 font-mono text-xs text-on-surface-variant uppercase tracking-widest hover:text-secondary transition-colors"
+            className="px-4 py-2 font-mono text-sm text-on-surface-variant uppercase tracking-widest hover:text-secondary transition-colors"
           >
             Back to site
           </Link>
@@ -88,7 +88,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               clearAdminSession();
               router.push("/admin/login");
             }}
-            className="flex items-center gap-2 px-4 py-2 font-mono text-xs text-error uppercase tracking-widest hover:text-error/80 transition-colors"
+            className="flex items-center gap-2 px-4 py-2 font-mono text-sm text-error uppercase tracking-widest hover:text-error/80 transition-colors"
           >
             <LogOut size={14} />
             Log out
@@ -105,7 +105,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           >
             <nav className="flex flex-col gap-1 p-3 pt-12">{NavContent}</nav>
             <div className="mt-auto p-3 border-t border-outline-variant flex flex-col gap-2">
-              <Link href="/" onClick={() => setMobileOpen(false)} className="px-4 py-2 font-mono text-xs text-on-surface-variant uppercase tracking-widest hover:text-secondary">
+              <Link href="/" onClick={() => setMobileOpen(false)} className="px-4 py-2 font-mono text-sm text-on-surface-variant uppercase tracking-widest hover:text-secondary">
                 Back to site
               </Link>
               <button
@@ -113,7 +113,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                   clearAdminSession();
                   router.push("/admin/login");
                 }}
-                className="flex items-center gap-2 px-4 py-2 font-mono text-xs text-error uppercase tracking-widest"
+                className="flex items-center gap-2 px-4 py-2 font-mono text-sm text-error uppercase tracking-widest"
               >
                 <LogOut size={14} />
                 Log out
@@ -125,7 +125,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
       {/* Top bar (desktop) */}
       <header className="hidden md:flex items-center justify-between px-8 py-4 border-b border-outline-variant bg-surface-container">
-        <span className="font-mono text-xs text-outline uppercase tracking-widest">Admin Console</span>
+        <span className="font-mono text-sm text-outline uppercase tracking-widest">Admin Console</span>
       </header>
 
       <div className="flex-1">{children}</div>
