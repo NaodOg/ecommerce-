@@ -286,7 +286,6 @@ function ProductForm({
             ))}
           </select>
           <input type="text" placeholder="Badge (e.g. NEW, SOLD OUT)" value={badge} onChange={(e) => setBadge(e.target.value)} className={inputClass} />
-          <textarea required placeholder="Description" value={description} onChange={(e) => setDescription(e.target.value)} rows={3} className={cn(inputClass, "resize-none")} />
 
           <label className="flex items-center gap-3 border border-outline-variant px-4 py-3 cursor-pointer">
             <input
@@ -301,7 +300,16 @@ function ProductForm({
           </label>
 
           {plain && (
-            <div className="flex gap-3">
+            <div className="flex flex-col gap-3">
+              <textarea
+                required
+                placeholder="Description (fabric, weight, construction...)"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                rows={3}
+                className={cn(inputClass, "resize-none")}
+              />
+              <div className="flex gap-3">
               <input
                 type="text"
                 placeholder="Bulk price per piece in ETB (e.g. 640)"
@@ -317,6 +325,7 @@ function ProductForm({
                 onChange={(e) => setBulkMin(e.target.value)}
                 className={cn(inputClass, "max-w-[140px]")}
               />
+            </div>
             </div>
           )}
 
